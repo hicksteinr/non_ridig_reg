@@ -5,9 +5,15 @@ list(PREPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # Libigl
 include(libigl)
+# set(VTK_DIR "/Users/richardhickstein/vtk/build/lib/cmake/vtk-9.4")
+
+find_package(VTK REQUIRED)
+
+
 
 # Enable the target igl::glfw
 igl_include(glfw)
+
 # Other modules you could enable
 #igl_include(embree)
 #igl_include(imgui)
@@ -25,7 +31,7 @@ igl_include(glfw)
 #igl_include(restricted triangle)
 
 # Add your project files
-file(GLOB SRC_FILES *.cpp)
+file(GLOB SRC_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 add_executable(${PROJECT_NAME} ${SRC_FILES})
 
 # Link igl (and the glfw module) to your project
@@ -46,4 +52,5 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
   # igl_restricted::matlab
   # igl_restricted::mosek
   # igl_restricted::triangle
+   PRIVATE ${VTK_LIBRARIES}
   )
