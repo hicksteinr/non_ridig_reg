@@ -1,10 +1,11 @@
 #pragma once
 
-#include <igl/opengl/glfw/Viewer.h>
+// #include <igl/opengl/glfw/Viewer.h>
 #include <vtkNew.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataReader.h>
 #include <vtkSmartPointer.h>
+#include <Eigen/Geometry>
 #include <string>
 
 namespace readers {
