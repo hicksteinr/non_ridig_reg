@@ -11,7 +11,7 @@
 
 namespace readers {
 vtkSmartPointer<vtkPolyData> ReadPolyData(const char *filename);
-void fill_eigen_matrices(vtkSmartPointer<vtkPoints> points, vtkSmartPointer<vtkCellArray> polys, Eigen::MatrixXd &V,
+void fill_eigen_matrices(vtkSmartPointer<vtkPoints> points, vtkSmartPointer<vtkCellArray> cells, Eigen::MatrixXd &V,
                          Eigen::MatrixXi &F);
 int load_target_indices(const std::string &filename, Eigen::VectorXi &indices);
 int load_target_points(const std::string &filename, Eigen::MatrixXd &points);

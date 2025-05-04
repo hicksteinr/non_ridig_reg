@@ -20,10 +20,10 @@ int main(int argc, char* argv[]) {
             .c_str());
     vtkSmartPointer<vtkPoints> points = mesh->GetPoints();
     Eigen::MatrixXd V = Eigen::MatrixXd(static_cast<int>(points->GetNumberOfPoints()), 3);
-    vtkSmartPointer<vtkCellArray> polys = mesh->GetPolys();
-    int numFaces = static_cast<int>(polys->GetNumberOfCells());
+    vtkSmartPointer<vtkCellArray> cells = mesh->GetPolys();
+    int numFaces = static_cast<int>(cells->GetNumberOfCells());
     Eigen::MatrixXi F(numFaces, 3);
-    readers::fill_eigen_matrices(points, polys, V, F);
+    readers::fill_eigen_matrices(points, cells, V, F);
 
     Eigen::VectorXi indices;
     Eigen::MatrixXd target_points;

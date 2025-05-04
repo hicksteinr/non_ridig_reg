@@ -11,7 +11,7 @@ vtkSmartPointer<vtkPolyData> readers::ReadPolyData(const char *filename) {
     polyData = reader->GetOutput();
     return polyData;
 }
-void readers::fill_eigen_matrices(vtkSmartPointer<vtkPoints> points, vtkSmartPointer<vtkCellArray> polys,
+void readers::fill_eigen_matrices(vtkSmartPointer<vtkPoints> points, vtkSmartPointer<vtkCellArray> cells,
                                   Eigen::MatrixXd &V, Eigen::MatrixXi &F) {
     for (vtkIdType i = 0; i < points->GetNumberOfPoints(); ++i) {
         double p[3];
@@ -23,9 +23,9 @@ void readers::fill_eigen_matrices(vtkSmartPointer<vtkPoints> points, vtkSmartPoi
 
     vtkIdType npts;
     vtkIdType const *pts;
-    polys->InitTraversal();
+    cells->InitTraversal();
     int faceIdx = 0;
-    while (polys->GetNextCell(npts, pts)) {
+    while (cells->GetNextCell(npts, pts)) {
         if (npts == 3) {  // triangle
             F(faceIdx, 0) = static_cast<int>(pts[0]);
             F(faceIdx, 1) = static_cast<int>(pts[1]);
@@ -39,7 +39,7 @@ void readers::fill_eigen_matrices(vtkSmartPointer<vtkPoints> points, vtkSmartPoi
 int count_lines(const std::string &filename) {
     std::ifstream file(filename);
     if (!file) {
-        std::cerr << "File: " << filename << "could not be read." << std::endl;
+        std::cerr << "File: " << filename << " could not be read." << std::endl;
         return 1;
     }
     int count = 0;
@@ -75,7 +75,7 @@ int readers::load_target_points(const std::string &filename, Eigen::MatrixXd &po
 
     std::ifstream infile(filename);
     if (!infile) {
-        std::cerr << "Point-File: " << filename << "could not be read." << std::endl;
+        std::cerr << "Point-File: " << filename << " could not be read." << std::endl;
         return 1;
     }
 
